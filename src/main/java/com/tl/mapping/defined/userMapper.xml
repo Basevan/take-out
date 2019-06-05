@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.tl.Dao.defined.MerchantDao">
+
+  <select id="selectAll"  resultType="java.lang.String">
+    select merchant_name from merchant where merchant_id = 1;
+  </select>
+
+
+</mapper>

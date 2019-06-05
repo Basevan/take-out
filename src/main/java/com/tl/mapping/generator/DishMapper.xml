@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tl.dao.generator.DishMapper">
+  <resultMap id="BaseResultMap" type="com.tl.model.Dish">
+    <id column="dish_id" jdbcType="INTEGER" property="dishId" />
+    <result column="dish_name" jdbcType="VARCHAR" property="dishName" />
+    <result column="belong_mer_id" jdbcType="VARCHAR" property="belongMerId" />
+    <result column="sales_volume" jdbcType="INTEGER" property="salesVolume" />
+    <result column="mark" jdbcType="DOUBLE" property="mark" />
+    <result column="dish_lable" jdbcType="VARCHAR" property="dishLable" />
+    <result column="dish_intro" jdbcType="VARCHAR" property="dishIntro" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dish_id, dish_name, belong_mer_id, sales_volume, mark, dish_lable, dish_intro
+  </sql>
+  <select id="selectByExample" parameterType="com.tl.model.DishCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dish
+    where dish_id = #{dishId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dish
+    where dish_id = #{dishId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tl.model.DishCriteria">
+    delete from dish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tl.model.Dish">
+    insert into dish (dish_id, dish_name, belong_mer_id, 
+      sales_volume, mark, dish_lable, 
+      dish_intro)
+    values (#{dishId,jdbcType=INTEGER}, #{dishName,jdbcType=VARCHAR}, #{belongMerId,jdbcType=VARCHAR}, 
+      #{salesVolume,jdbcType=INTEGER}, #{mark,jdbcType=DOUBLE}, #{dishLable,jdbcType=VARCHAR}, 
+      #{dishIntro,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tl.model.Dish">
+    insert into dish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">
+        dish_id,
+      </if>
+      <if test="dishName != null">
+        dish_name,
+      </if>
+      <if test="belongMerId != null">
+        belong_mer_id,
+      </if>
+      <if test="salesVolume != null">
+        sales_volume,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="dishLable != null">
+        dish_lable,
+      </if>
+      <if test="dishIntro != null">
+        dish_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dishId != null">
+        #{dishId,jdbcType=INTEGER},
+      </if>
+      <if test="dishName != null">
+        #{dishName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongMerId != null">
+        #{belongMerId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null">
+        #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="dishLable != null">
+        #{dishLable,jdbcType=VARCHAR},
+      </if>
+      <if test="dishIntro != null">
+        #{dishIntro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tl.model.DishCriteria" resultType="java.lang.Long">
+    select count(*) from dish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dish
+    <set>
+      <if test="record.dishId != null">
+        dish_id = #{record.dishId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dishName != null">
+        dish_name = #{record.dishName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.belongMerId != null">
+        belong_mer_id = #{record.belongMerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesVolume != null">
+        sales_volume = #{record.salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.mark != null">
+        mark = #{record.mark,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dishLable != null">
+        dish_lable = #{record.dishLable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishIntro != null">
+        dish_intro = #{record.dishIntro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dish
+    set dish_id = #{record.dishId,jdbcType=INTEGER},
+      dish_name = #{record.dishName,jdbcType=VARCHAR},
+      belong_mer_id = #{record.belongMerId,jdbcType=VARCHAR},
+      sales_volume = #{record.salesVolume,jdbcType=INTEGER},
+      mark = #{record.mark,jdbcType=DOUBLE},
+      dish_lable = #{record.dishLable,jdbcType=VARCHAR},
+      dish_intro = #{record.dishIntro,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tl.model.Dish">
+    update dish
+    <set>
+      <if test="dishName != null">
+        dish_name = #{dishName,jdbcType=VARCHAR},
+      </if>
+      <if test="belongMerId != null">
+        belong_mer_id = #{belongMerId,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null">
+        sales_volume = #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=DOUBLE},
+      </if>
+      <if test="dishLable != null">
+        dish_lable = #{dishLable,jdbcType=VARCHAR},
+      </if>
+      <if test="dishIntro != null">
+        dish_intro = #{dishIntro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dish_id = #{dishId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tl.model.Dish">
+    update dish
+    set dish_name = #{dishName,jdbcType=VARCHAR},
+      belong_mer_id = #{belongMerId,jdbcType=VARCHAR},
+      sales_volume = #{salesVolume,jdbcType=INTEGER},
+      mark = #{mark,jdbcType=DOUBLE},
+      dish_lable = #{dishLable,jdbcType=VARCHAR},
+      dish_intro = #{dishIntro,jdbcType=VARCHAR}
+    where dish_id = #{dishId,jdbcType=INTEGER}
+  </update>
+</mapper>

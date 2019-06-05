@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tl.dao.generator.MerchantMapper">
+  <resultMap id="BaseResultMap" type="com.tl.model.Merchant">
+    <id column="merchant_id" jdbcType="INTEGER" property="merchantId" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="merchant_intro" jdbcType="VARCHAR" property="merchantIntro" />
+    <result column="merchant_lable" jdbcType="VARCHAR" property="merchantLable" />
+    <result column="min_delivery_price" jdbcType="DECIMAL" property="minDeliveryPrice" />
+    <result column="delevery_price" jdbcType="DECIMAL" property="deleveryPrice" />
+    <result column="avg_arrive_time" jdbcType="INTEGER" property="avgArriveTime" />
+    <result column="new_merchant" jdbcType="INTEGER" property="newMerchant" />
+    <result column="insurance" jdbcType="INTEGER" property="insurance" />
+    <result column="compensate" jdbcType="INTEGER" property="compensate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    merchant_id, merchant_name, address, merchant_intro, merchant_lable, min_delivery_price, 
+    delevery_price, avg_arrive_time, new_merchant, insurance, compensate
+  </sql>
+  <select id="selectByExample" parameterType="com.tl.model.MerchantCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tl.model.MerchantCriteria">
+    delete from merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tl.model.Merchant">
+    insert into merchant (merchant_id, merchant_name, address, 
+      merchant_intro, merchant_lable, min_delivery_price, 
+      delevery_price, avg_arrive_time, new_merchant, 
+      insurance, compensate)
+    values (#{merchantId,jdbcType=INTEGER}, #{merchantName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{merchantIntro,jdbcType=VARCHAR}, #{merchantLable,jdbcType=VARCHAR}, #{minDeliveryPrice,jdbcType=DECIMAL}, 
+      #{deleveryPrice,jdbcType=DECIMAL}, #{avgArriveTime,jdbcType=INTEGER}, #{newMerchant,jdbcType=INTEGER}, 
+      #{insurance,jdbcType=INTEGER}, #{compensate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tl.model.Merchant">
+    insert into merchant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="merchantIntro != null">
+        merchant_intro,
+      </if>
+      <if test="merchantLable != null">
+        merchant_lable,
+      </if>
+      <if test="minDeliveryPrice != null">
+        min_delivery_price,
+      </if>
+      <if test="deleveryPrice != null">
+        delevery_price,
+      </if>
+      <if test="avgArriveTime != null">
+        avg_arrive_time,
+      </if>
+      <if test="newMerchant != null">
+        new_merchant,
+      </if>
+      <if test="insurance != null">
+        insurance,
+      </if>
+      <if test="compensate != null">
+        compensate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantIntro != null">
+        #{merchantIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLable != null">
+        #{merchantLable,jdbcType=VARCHAR},
+      </if>
+      <if test="minDeliveryPrice != null">
+        #{minDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deleveryPrice != null">
+        #{deleveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="avgArriveTime != null">
+        #{avgArriveTime,jdbcType=INTEGER},
+      </if>
+      <if test="newMerchant != null">
+        #{newMerchant,jdbcType=INTEGER},
+      </if>
+      <if test="insurance != null">
+        #{insurance,jdbcType=INTEGER},
+      </if>
+      <if test="compensate != null">
+        #{compensate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tl.model.MerchantCriteria" resultType="java.lang.Long">
+    select count(*) from merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update merchant
+    <set>
+      <if test="record.merchantId != null">
+        merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchantName != null">
+        merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantIntro != null">
+        merchant_intro = #{record.merchantIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantLable != null">
+        merchant_lable = #{record.merchantLable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minDeliveryPrice != null">
+        min_delivery_price = #{record.minDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deleveryPrice != null">
+        delevery_price = #{record.deleveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.avgArriveTime != null">
+        avg_arrive_time = #{record.avgArriveTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.newMerchant != null">
+        new_merchant = #{record.newMerchant,jdbcType=INTEGER},
+      </if>
+      <if test="record.insurance != null">
+        insurance = #{record.insurance,jdbcType=INTEGER},
+      </if>
+      <if test="record.compensate != null">
+        compensate = #{record.compensate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update merchant
+    set merchant_id = #{record.merchantId,jdbcType=INTEGER},
+      merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      merchant_intro = #{record.merchantIntro,jdbcType=VARCHAR},
+      merchant_lable = #{record.merchantLable,jdbcType=VARCHAR},
+      min_delivery_price = #{record.minDeliveryPrice,jdbcType=DECIMAL},
+      delevery_price = #{record.deleveryPrice,jdbcType=DECIMAL},
+      avg_arrive_time = #{record.avgArriveTime,jdbcType=INTEGER},
+      new_merchant = #{record.newMerchant,jdbcType=INTEGER},
+      insurance = #{record.insurance,jdbcType=INTEGER},
+      compensate = #{record.compensate,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tl.model.Merchant">
+    update merchant
+    <set>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantIntro != null">
+        merchant_intro = #{merchantIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantLable != null">
+        merchant_lable = #{merchantLable,jdbcType=VARCHAR},
+      </if>
+      <if test="minDeliveryPrice != null">
+        min_delivery_price = #{minDeliveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="deleveryPrice != null">
+        delevery_price = #{deleveryPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="avgArriveTime != null">
+        avg_arrive_time = #{avgArriveTime,jdbcType=INTEGER},
+      </if>
+      <if test="newMerchant != null">
+        new_merchant = #{newMerchant,jdbcType=INTEGER},
+      </if>
+      <if test="insurance != null">
+        insurance = #{insurance,jdbcType=INTEGER},
+      </if>
+      <if test="compensate != null">
+        compensate = #{compensate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tl.model.Merchant">
+    update merchant
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      merchant_intro = #{merchantIntro,jdbcType=VARCHAR},
+      merchant_lable = #{merchantLable,jdbcType=VARCHAR},
+      min_delivery_price = #{minDeliveryPrice,jdbcType=DECIMAL},
+      delevery_price = #{deleveryPrice,jdbcType=DECIMAL},
+      avg_arrive_time = #{avgArriveTime,jdbcType=INTEGER},
+      new_merchant = #{newMerchant,jdbcType=INTEGER},
+      insurance = #{insurance,jdbcType=INTEGER},
+      compensate = #{compensate,jdbcType=INTEGER}
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+</mapper>
